@@ -5,7 +5,15 @@ when you do not have control over which associations are going to be used by
 the view, like when you provide users customizable views with
 [Liquid](https://github.com/chamnap/liquid-rails).
 
-## How it Works
+## Installation
+
+You can use `gem install smart_preloads` to install it manually or use Bundler:
+
+```ruby
+gem 'smart_preloads'
+```
+
+## Usage
 
 You have to call `smart_preloads` at the end of your association. This will
 generate a smart list of items that will load associations **if and when**
@@ -39,13 +47,16 @@ end
 #=> SELECT "categories".* FROM "categories" WHERE "categories"."id" IN (1, 2)
 ```
 
-## Installation
+## How it Works
 
-You can use `gem install smart_preloads` to install it manually or use Bundler:
+In order for it to work, `smart_preloads` has a custom list class
+(`SmartPreloads::List`) and a custom item class for each item in a list
+(`SmartPreloads::Item`). This has to be this way in order to intercept calls to
+associations and preload them for every item.
 
-```ruby
-gem 'smart_preloads'
-```
+Therefore, when you call `Author.all.smart_preloads.first` you will **not**
+have an instance of `Author`. Instead, you will have an instance of
+`SmartPreloads::Item` that delegates calls to the original `Author` object.
 
 ## Contributing
 
