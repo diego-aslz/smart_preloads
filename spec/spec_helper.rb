@@ -53,4 +53,11 @@ RSpec.configure do |config|
       end
     end
   end
+
+  config.around(:each) do |example|
+    ActiveRecord::Base.transaction do
+      example.run
+      raise ActiveRecord::Rollback
+    end
+  end
 end

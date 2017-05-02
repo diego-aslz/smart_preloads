@@ -2,7 +2,7 @@ module SmartIncludes
   module Adapters
     module ActiveRecordAdapter
       def smart_includes
-        # TODO
+        SmartIncludes::List.new(all)
       end
     end
 
