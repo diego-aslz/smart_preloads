@@ -1,4 +1,4 @@
-# smart_includes
+# smart_preloads
 
 Avoid N + 1 queries without having to worry about it at all!
 

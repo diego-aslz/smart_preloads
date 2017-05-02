@@ -18,12 +18,12 @@ class Tag < ActiveRecord::Base
   belongs_to :taggable, polymorphic: true
 end
 
-describe 'SmartIncludes' do
-  it 'smart loads has_many associations' do
+describe 'SmartPreloads' do
+  it 'smartly loads has_many associations' do
     Book.create!(name: 'Rework')
     Book.create!(name: 'Lean Startup')
 
-    list = Book.all.smart_includes.to_a
+    list = Book.all.smart_preloads.to_a
 
     expect(list.size).to eq(2)
     expect(list.first.association(:tags)).to_not be_loaded
@@ -38,11 +38,11 @@ describe 'SmartIncludes' do
     expect(list.last.association(:tags)).to  be_loaded
   end
 
-  it 'smart loads belongs_to associations' do
+  it 'smartly loads belongs_to associations' do
     Book.create!(name: 'Rework')
     Book.create!(name: 'Lean Startup')
 
-    list = Book.all.smart_includes.to_a
+    list = Book.all.smart_preloads.to_a
 
     expect(list.size).to eq(2)
     expect(list.first.association(:author)).to_not be_loaded
@@ -53,7 +53,7 @@ describe 'SmartIncludes' do
     expect(list.last.association(:author)).to  be_loaded
   end
 
-  it 'smart loads nested associations' do
+  it 'smartly loads nested associations' do
     a1 = Author.create!(name: 'John')
     a2 = Author.create!(name: 'Robb')
     c1 = Category.create!(name: 'Humor')
@@ -61,7 +61,7 @@ describe 'SmartIncludes' do
     Book.create!(name: 'Rework', author_id: a1.id, category_id: c1.id)
     Book.create!(name: 'Lean Startup', author_id: a2.id, category_id: c2.id)
 
-    list = Author.all.smart_includes.to_a
+    list = Author.all.smart_preloads.to_a
 
     expect(list.size).to eq(2)
     expect(list.first.association(:books)).to_not be_loaded

@@ -15,8 +15,8 @@ require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification...
   # see http://guides.rubygems.org/specification-reference/ for more options
-  gem.name = 'smart_includes'
-  gem.homepage = 'http://github.com/nerde/smart_includes'
+  gem.name = 'smart_preloads'
+  gem.homepage = 'http://github.com/nerde/smart_preloads'
   gem.license = 'MIT'
   gem.summary = 'Smart association loading for ActiveRecord.'
   gem.description = 'Avoid N + 1 queries without having to worry about it at all!'
@@ -44,7 +44,7 @@ Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ''
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "smart_includes #{version}"
+  rdoc.title = "smart_preloads #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end

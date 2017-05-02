@@ -1,4 +1,4 @@
-module SmartIncludes
+module SmartPreloads
   class Item < SimpleDelegator
     def initialize(record, loader: nil)
       super(record)

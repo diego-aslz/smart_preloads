@@ -1,4 +1,4 @@
-module SmartIncludes
+module SmartPreloads
   class Loader
     attr_reader :collection
 

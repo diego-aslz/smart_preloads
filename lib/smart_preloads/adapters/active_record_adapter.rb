@@ -1,8 +1,8 @@
-module SmartIncludes
+module SmartPreloads
   module Adapters
     module ActiveRecordAdapter
-      def smart_includes
-        SmartIncludes::List.new(all)
+      def smart_preloads
+        SmartPreloads::List.new(all)
       end
     end
 
