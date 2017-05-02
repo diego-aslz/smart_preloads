@@ -3,8 +3,11 @@ module SmartPreloads
     def initialize(record, loader: nil)
       super(record)
       @loader = loader || Loader.new([record])
+      _override_associations
+    end
 
-      record.class.reflections.each do |key, association|
+    def _override_associations
+      __getobj__.class.reflections.each do |key, association|
         original = method(key)
         singleton_class.class_exec do
           body = nil
