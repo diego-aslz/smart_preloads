@@ -32,6 +32,13 @@ Gem::Specification.new do |s|
     "gemfiles/4.0.gemfile",
     "gemfiles/4.1.gemfile",
     "gemfiles/5.0.gemfile",
+    "lib/smart_preloads.rb",
+    "lib/smart_preloads/adapters/active_record_adapter.rb",
+    "lib/smart_preloads/item.rb",
+    "lib/smart_preloads/list.rb",
+    "lib/smart_preloads/loader.rb",
+    "smart_preloads.gemspec",
+    "spec/smart_preloads_spec.rb",
     "spec/spec_helper.rb"
   ]
   s.homepage = "http://github.com/nerde/smart_preloads".freeze
