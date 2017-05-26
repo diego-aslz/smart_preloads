@@ -9,7 +9,11 @@ module SmartPreloads
 
     def each
       loaded_collection.each do |resource|
-        yield Item.new(resource, loader: @loader)
+        if resource.is_a?(Item)
+          yield resource
+        else
+          yield Item.new(resource, loader: @loader)
+        end
       end
     end
 
@@ -19,6 +23,14 @@ module SmartPreloads
 
     def size
       to_a.size
+    end
+
+    def +(other)
+      to_a + other.to_a
+    end
+
+    def [](idx)
+      to_a[idx]
     end
 
     protected

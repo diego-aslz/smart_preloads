@@ -78,4 +78,19 @@ describe 'SmartPreloads' do
     expect(list.first.books.first.association(:category)).to be_loaded
     expect(list.last.books.first.association(:category)).to  be_loaded
   end
+
+  it 'supports concatenation' do
+    Book.create!(name: 'Rework')
+    Book.create!(name: 'Lean Startup')
+    Author.create!(books: [Book.first])
+    Author.create!(books: [Book.last])
+
+    list = Book.all.smart_preloads + Author.all.smart_preloads
+
+    list[2].books.to_a
+    expect(list[3].association(:books)).to be_loaded
+
+    list.first.author
+    expect(list[1].association(:author)).to be_loaded
+  end
 end
