@@ -51,10 +51,18 @@ end
 
 In order for it to work, `smart_preloads` has a custom list class
 (`SmartPreloads::List`) and a custom item class for each item in a list
-(`SmartPreloads::Item`). This has to be this way in order to intercept calls to
-associations and preload them for every item.
+(`SmartPreloads::Item`).
 
-Therefore, when you call `Author.all.smart_preloads.first` you will **not**
+The List class allows detecting when the collection
+is really used (iterated) so only then the associations will be detected and
+mokey patched in place. This is needed so whenever a call to an association
+is made it will be loaded, even from calls from within the object itself.
+
+The Item class monkey patches all association methods in the objects loaded
+to intercept the calls. The monkey patch is **in place**, not global. Only
+the objects in the `smart_preloads` collection will be monkey patched.
+
+Note that when you call `Author.all.smart_preloads.first` you will **not**
 have an instance of `Author`. Instead, you will have an instance of
 `SmartPreloads::Item` that delegates calls to the original `Author` object.
 

@@ -12,6 +12,10 @@ class Book < ActiveRecord::Base
   belongs_to :author
   belongs_to :category
   has_many :tags, as: :taggable
+
+  def author_name
+    author.try!(:name)
+  end
 end
 
 class Tag < ActiveRecord::Base
@@ -91,6 +95,18 @@ describe 'SmartPreloads' do
     expect(list[3].association(:books)).to be_loaded
 
     list.first.author
+    expect(list[1].association(:author)).to be_loaded
+  end
+
+  it 'works with internal methods' do
+    a1 = Author.create!(name: 'John')
+    a2 = Author.create!(name: 'Doe')
+    Book.create!(name: 'Rework', author: a1)
+    Book.create!(name: 'Lean Startup', author: a2)
+
+    list = Book.all.smart_preloads
+
+    list.first.author_name
     expect(list[1].association(:author)).to be_loaded
   end
 end
